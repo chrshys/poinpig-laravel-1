@@ -18,7 +18,8 @@ class PasswordController extends Controller
      */
     public function edit(Request $request): Response
     {
-        return Inertia::render('settings/Password', [
+        return Inertia::render('Settings/Password', [
+            'title' => 'Settings',
             'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
             'status' => $request->session()->get('status'),
         ]);

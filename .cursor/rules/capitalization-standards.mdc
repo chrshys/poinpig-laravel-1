@@ -1,0 +1,34 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Capitalization and Naming Convention Rule
+
+## Directory Naming
+- Laravel standard directories: Follow Laravel conventions (app/, resources/, routes/, etc.)
+- Within resources/js/:
+  - Pages/ (Pascal Case)
+  - Layouts/ (Pascal Case)
+  - Components/ (Pascal Case)
+  - Composables/ (camelCase)
+
+## File Naming
+- Vue Components: PascalCase.vue (e.g., Welcome.vue, Dashboard.vue)
+- TypeScript/JavaScript utilities: camelCase.ts/js (e.g., useAppearance.ts)
+- PHP Controllers: PascalCase.php (e.g., UserController.php)
+- PHP Models: PascalCase.php (singular form, e.g., User.php)
+
+## Import/Require Paths
+- CRITICAL: All imports must respect the exact case of the actual file/directory
+- Example: import AppLayout from '@/Layouts/AppLayout.vue';
+- DO NOT use lowercase in paths when the actual directory/file uses PascalCase
+
+## Inertia Page References
+- When using Inertia::render() in PHP, use the exact case matching file name without .vue extension
+- Example: return Inertia::render('Dashboard');
+
+## Inertia Path Resolution (in app.ts)
+- Always use exact capitalization matching directory structure
+- DO NOT use name.toLowerCase() in the resolver
+- Ensure proper case: `./Pages/${name}.vue` not `./pages/${name}.vue`
