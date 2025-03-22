@@ -20,12 +20,18 @@ import AppLayout from '@/Layouts/AppLayout.vue';
                         <div class="bg-muted text-muted-foreground p-4 rounded-lg mb-6">
                             <h3 class="font-medium text-lg mb-2">Current Team: {{ $page.props.auth.user.current_team.name }}</h3>
                             <p class="mb-3">Team Type: <span class="capitalize">{{ $page.props.auth.user.current_team.team_type || 'Not set' }}</span></p>
+                            <p class="mb-3">Role: <span class="font-medium">
+                                {{ $page.props.auth.user.ownsCurrentTeam ? 'Owner' : 
+                                   ($page.props.auth.user.current_team.membership ? 
+                                    $page.props.auth.user.current_team.membership.role : 'Member') }}
+                            </span></p>
                             
                             <template v-if="$page.props.auth.user.current_team.team_type === 'family'">
                                 <div class="mt-4">
                                     <Link :href="route('family.dashboard')" class="inline-flex items-center px-4 py-2 bg-primary border border-transparent rounded-md font-semibold text-xs text-primary-foreground uppercase tracking-widest hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 transition ease-in-out duration-150">
                                         Go to Family Dashboard
                                     </Link>
+                                    <p class="mt-2 text-sm">You will see the appropriate dashboard based on your role.</p>
                                 </div>
                             </template>
                             
@@ -34,6 +40,7 @@ import AppLayout from '@/Layouts/AppLayout.vue';
                                     <Link :href="route('classroom.dashboard')" class="inline-flex items-center px-4 py-2 bg-primary border border-transparent rounded-md font-semibold text-xs text-primary-foreground uppercase tracking-widest hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 transition ease-in-out duration-150">
                                         Go to Classroom Dashboard
                                     </Link>
+                                    <p class="mt-2 text-sm">You will see the appropriate dashboard based on your role.</p>
                                 </div>
                             </template>
                             

@@ -31,7 +31,15 @@ Route::middleware([
     'team.type:family'
 ])->prefix('family')->name('family.')->group(function () {
     Route::get('/dashboard', function () {
-        return Inertia::render('Family/Dashboard');
+        $user = auth()->user();
+        $team = $user->currentTeam;
+        
+        // Check if the user is the owner of the team or has admin role
+        if ($user->ownsTeam($team) || $user->hasTeamRole($team, 'admin')) {
+            return Inertia::render('Family/Dashboard');
+        } else {
+            return Inertia::render('Family/UserDashboard');
+        }
     })->name('dashboard');
 });
 
@@ -43,6 +51,14 @@ Route::middleware([
     'team.type:classroom'
 ])->prefix('classroom')->name('classroom.')->group(function () {
     Route::get('/dashboard', function () {
-        return Inertia::render('Classroom/Dashboard');
+        $user = auth()->user();
+        $team = $user->currentTeam;
+        
+        // Check if the user is the owner of the team or has admin role
+        if ($user->ownsTeam($team) || $user->hasTeamRole($team, 'admin')) {
+            return Inertia::render('Classroom/Dashboard');
+        } else {
+            return Inertia::render('Classroom/UserDashboard');
+        }
     })->name('dashboard');
 });
